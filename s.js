@@ -1,8 +1,8 @@
 var attemptsFailEventPass = 0;
 
 let bgList = [
-  "/assets/background.png",
-  "/assets/background2.png"
+  "./assets/background.png",
+  "./assets/background2.png"
 ];
 
 let index = 0;
