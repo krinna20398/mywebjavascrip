@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>สมัครสมาชิก</title>
+    <link rel="stylesheet" href="./css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="swap-bg">
+    <img id="bg" src="/assets/background.png">
+    <button class="changeBgButton" onclick="changeBg()">เปลี่ยนพื้นหลัง</button>
+    </div>
+    <!-- Login Form -->
+    <form>
+        <label for="username">Fake Login</label><br>
+        <input type="text" id="input_username" name="username" placeholder="ตัวอย่าง : user_inwza007"><br><br>
+
+        <div class=" password-container">
+            <input type="password" id="mypassInput" placeholder="ตัวอย่าง : Inwza007">
+            <button id type="button" onclick="togglePasswordVisibility(event)" class="sbutton">Show</button>
+        </div>
+
+        <button type="submit" onclick="FailEventPass(event)" class="sbutton">Submit</button>
+    </form>
+
+    <div id="box"></div>
+    <!-- Custom Alert -->
+    <div class="custom-alert" id="alertBox"></div>
+
+    <script src="./s.js"></script>
+</body>
+
+</html>
