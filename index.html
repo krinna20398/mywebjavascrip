@@ -3,34 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>สมัครสมาชิก</title>
-    <link rel="stylesheet" href="./css.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การ login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css.css">
 </head>
 
 <body>
-    <div class="swap-bg">
-    <img id="bg" src="./assets/background.png">
-    <button class="changeBgButton" onclick="changeBg()">เปลี่ยนพื้นหลัง</button>
+
+    <img id="bg" src="./assets/background.png" alt="Background">
+
+    <button class="changeBgButton" onclick="changeBg()">
+        <i class="fas fa-image"></i> เปลี่ยนธีม
+    </button>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div id="alertBox" class="custom-alert">
+        <i id="alertIcon" class="fas fa-exclamation-circle alert-icon"></i>
+        <div id="alertText" class="alert-msg">ข้อความแจ้งเตือน</div>
     </div>
-    <!-- Login Form -->
-    <form>
-        <label for="username">Fake Login</label><br>
-        <input type="text" id="input_username" name="username" placeholder="ตัวอย่าง : user_inwza007"><br><br>
 
-        <div class=" password-container">
-            <input type="password" id="mypassInput" placeholder="ตัวอย่าง : Inwza007">
-            <button id type="button" onclick="togglePasswordVisibility(event)" class="sbutton">Show</button>
-        </div>
+    <div class="login-card" id="loginCard">
+        <div class="login-header">เข้าสุ่ระบบ</div>
 
-        <button type="submit" onclick="FailEventPass(event)" class="sbutton">Submit</button>
-    </form>
+        <form onsubmit="FailEventPass(event)">
+            <div class="input-group">
+                <label>ชื่อผู้ใช่</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="input_username" placeholder="Enter Username">
+                </div>
+            </div>
 
-    <div id="box"></div>
-    <!-- Custom Alert -->
-    <div class="custom-alert" id="alertBox"></div>
+            <div class="input-group">
+                <label>รหัสผ่าน</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="mypassInput" placeholder="Enter Password">
+                    <button type="button" class="toggle-btn" onclick="togglePasswordVisibility(this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
 
-    <script src="./s.js"></script>
+            <button type="submit" class="sbutton">ยืนยัน</button>
+        </form>
+    </div>
+        <script src="./s.js"></script>
+
 </body>
 
 </html>

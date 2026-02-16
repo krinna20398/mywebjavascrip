@@ -1,80 +1,86 @@
-var attemptsFailEventPass = 0;
 
-let bgList = [
-  "./assets/background.png",
-  "./assets/background2.png"
-];
-
-let index = 0;
+let attempts = 0;
+const bgList = ["./assets/background.png", "./assets/background2.png"];
+let bgIndex = 0;
 
 function changeBg() {
-  const bg = document.getElementById("bg");
-
-  // fade out
-  bg.style.opacity = 0;
-
-  setTimeout(() => {
-    index++;
-    if (index >= bgList.length) index = 0;
-
-    bg.src = bgList[index];
-    bg.style.opacity = 1;
-  }, 300); // time
+    const bg = document.getElementById("bg");
+    bg.style.opacity = 0;
+    setTimeout(() => {
+        bgIndex = (bgIndex + 1) % bgList.length;
+        bg.src = bgList[bgIndex];
+        bg.style.opacity = 1;
+    }, 500);
 }
 
+function togglePasswordVisibility(btn) {
+    const input = document.getElementById("mypassInput");
+    const icon = btn.querySelector("i");
 
-
-function togglePasswordVisibility(event) {
-    var inputField = document.getElementById("mypassInput");
-    var toggleButton = event.target;
-
-    if (inputField.type === "password") {
-        inputField.type = "text";
-        toggleButton.textContent = "Hide";
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
     } else {
-        inputField.type = "password";
-        toggleButton.textContent = "Show ";
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
 }
 
 function showAlert(message, type = "error") {
     const alertBox = document.getElementById("alertBox");
+    const alertText = document.getElementById("alertText");
+    const alertIcon = document.getElementById("alertIcon");
+    const overlay = document.getElementById("overlay");
 
-    alertBox.textContent = message;
+    alertText.textContent = message;
+
     alertBox.className = "custom-alert show " + type;
+    if (type === "success") alertIcon.className = "fas fa-check-circle alert-icon";
+    else if (type === "warning") alertIcon.className = "fas fa-exclamation-triangle alert-icon";
+    else alertIcon.className = "fas fa-times-circle alert-icon";
+
+    overlay.classList.add("show");
 
     setTimeout(() => {
-        alertBox.className = "custom-alert";
-    }, 5000);
+        alertBox.classList.remove("show");
+        overlay.classList.remove("show");
+    }, 3000);
+}
+
+function triggerShake() {
+    const card = document.getElementById("loginCard");
+    card.classList.add("shake");
+    setTimeout(() => {
+        card.classList.remove("shake");
+    }, 500);
 }
 
 function FailEventPass(event) {
     event.preventDefault();
 
-    var username = document.getElementById("input_username").value;
-    var password = document.getElementById("mypassInput").value;
+    const username = document.getElementById("input_username").value.trim();
+    const password = document.getElementById("mypassInput").value;
 
-    if (password === "") {
-        showAlert("ยังไม่ได้ใส่รหัสผ่าน", "warning");
-        return;
-    }
-    if (attemptsFailEventPass >= 5) {
-        showAlert("ไม่มีครั้งต่อไปแล้ว", "error");
-        return;
-    }
-    if (password === "password" || password === "Password") {
-        attemptsFailEventPass++;
-        showAlert("แน่ใจหรอว่านั่นรหัสผ่าน? อย่าให้มีครั้งที่ " + attemptsFailEventPass, "error");
+    if (!password) {
+        showAlert("กรุณากรอกรหัสผ่าน", "warning");
+        triggerShake();
         return;
     }
 
-    if (password !== "Inwza007") {
-        attemptsFailEventPass++;
-        showAlert("รหัสผ่านไม่ถูกต้อง อย่าให้มีครั้งที่ " + attemptsFailEventPass, "error");
+    if (attempts >= 5) {
+        showAlert("ระงับการใช้งานชั่วคราว", "error");
+        triggerShake();
         return;
     }
-    if (password === "Inwza007" && username === "user_inwza007") {
-        showAlert("นี่แหละรหัสผ่าo!", "success");
+
+    if (username === "user_inwza007" && password === "Inwza007") {
+        showAlert("ยินดีต้อนรับ! เข้าสู่ระบบสำเร็จ", "success");
+        attempts = 0;
+    } else {
+        attempts++;
+        showAlert(`ข้อมูลไม่ถูกต้อง (${attempts}/5)`, "error");
+        triggerShake();
     }
 }
-

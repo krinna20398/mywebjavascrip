@@ -1,140 +1,267 @@
-#bg {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    object-fit: cover;
-    /* fullsite */
-    filter: blur(8px);
-      transition: opacity 0.6s ease-in-out;
+ /* --- 1. การตั้งค่าพื้นฐาน --- */
+ * {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+     font-family: 'Kanit', sans-serif;
+ }
 
-}
+ body {
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #1a1a1a;
+     overflow: hidden;
+ }
 
-.changeBgButton {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    background-color: #677c92;
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    z-index: 10;
-}
+ /* --- 2. พื้นหลัง (Background) --- */
+ #bg {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     object-fit: cover;
+     z-index: -1;
+     filter: brightness(0.6);
+     /* ทำให้พื้นหลังมืดลงนิดหน่อยเพื่อให้ตัวหนังสือเด่น */
+     transition: opacity 0.8s ease-in-out;
+ }
 
-.changeBgButton:hover {
-    background-color: #546a7f;
-}
+ /* --- 3. การ์ด Login (Glassmorphism) --- */
+ .login-card {
+     background: rgba(255, 255, 255, 0.1);
+     /* สีขาวโปร่งแสง */
+     backdrop-filter: blur(15px);
+     /* เอฟเฟกต์เบลอหลังกระจก */
+     -webkit-backdrop-filter: blur(15px);
+     border: 1px solid rgba(255, 255, 255, 0.2);
+     padding: 40px 30px;
+     width: 380px;
+     border-radius: 20px;
+     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+     text-align: center;
+     color: white;
+     transition: transform 0.3s ease;
+ }
 
+ .login-card:hover {
+     transform: translateY(-5px);
+     /* ลอยขึ้นเล็กน้อยเมื่อเอาเมาส์ชี้ */
+ }
 
+ .login-header {
+     font-size: 2rem;
+     margin-bottom: 30px;
+     font-weight: 600;
+     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+ }
 
-/* Reset */
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+ /* --- 4. Input Fields --- */
+ .input-group {
+     position: relative;
+     margin-bottom: 20px;
+     text-align: left;
+ }
 
-body {
-    background-color: #f2f2f2;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+ .input-group label {
+     display: block;
+     margin-bottom: 8px;
+     font-size: 0.9rem;
+     color: rgba(255, 255, 255, 0.8);
+ }
 
-form {
-    background-color: #ffffff;
-    padding: 25px 30px;
-    width: 320px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+ .input-wrapper {
+     position: relative;
+ }
 
-label {
-    font-weight: bold;
-}
+ .input-wrapper i {
+     position: absolute;
+     top: 50%;
+     left: 15px;
+     transform: translateY(-50%);
+     color: #ddd;
+ }
 
-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+ input {
+     width: 100%;
+     padding: 12px 15px 12px 45px;
+     /* เว้นที่ให้ไอคอนด้านซ้าย */
+     background: rgba(255, 255, 255, 0.1);
+     border: 1px solid rgba(255, 255, 255, 0.3);
+     border-radius: 50px;
+     /* ขอบมน */
+     color: white;
+     font-size: 1rem;
+     outline: none;
+     transition: all 0.3s;
+ }
 
-.password-container {
-    margin-top: 10px;
-}
+ input:focus {
+     background: rgba(255, 255, 255, 0.2);
+     border-color: #fff;
+     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+ }
 
-.sbutton {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+ input::placeholder {
+     color: rgba(255, 255, 255, 0.5);
+ }
 
-.sbutton:hover {
-    background-color: #0056b3;
-}
+ /* ปุ่มดูรหัสผ่าน */
+ .toggle-btn {
+     position: absolute;
+     top: 50%;
+     right: 15px;
+     transform: translateY(-50%);
+     background: none;
+     border: none;
+     color: rgba(255, 255, 255, 0.7);
+     cursor: pointer;
+     font-size: 0.9rem;
+ }
 
-.password-container button {
-    margin-top: 8px;
-    background-color: #6c757d;
-}
+ .toggle-btn:hover {
+     color: white;
+ }
 
-.password-container button:hover {
-    background-color: #5a6268;
-}
+ /* --- 5. ปุ่ม Login --- */
+ .sbutton {
+     width: 100%;
+     padding: 12px;
+     margin-top: 20px;
+     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+     color: white;
+     border: none;
+     border-radius: 50px;
+     font-size: 1.1rem;
+     font-weight: 600;
+     cursor: pointer;
+     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+     transition: all 0.3s ease;
+ }
 
-.custom-alert {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
+ .sbutton:hover {
+     transform: scale(1.02);
+     box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+ }
 
-    background-color: #ff4d4f;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ .sbutton:active {
+     transform: scale(0.98);
+ }
 
-    opacity: 0;
-    pointer-events: none;
-    transform: translate(-40px, 40px);
-    transition: all 0.4s ease;
-}
+ /* --- 6. ปุ่มเปลี่ยนพื้นหลัง --- */
+ .changeBgButton {
+     position: fixed;
+     top: 20px;
+     right: 20px;
+     background: rgba(0, 0, 0, 0.5);
+     color: white;
+     border: 1px solid rgba(255, 255, 255, 0.2);
+     padding: 8px 15px;
+     border-radius: 30px;
+     cursor: pointer;
+     backdrop-filter: blur(5px);
+     transition: all 0.3s;
+     z-index: 10;
+ }
 
-/* alert */
-.custom-alert.show {
-    opacity: 1;
-    transform: translate(0, 0);
-    pointer-events: auto;
-}
+ .changeBgButton:hover {
+     background: rgba(0, 0, 0, 0.8);
+ }
 
-.custom-alert.success {
-    background-color: #28a745;
-}
+ /* --- 7. Alert Box สวยๆ (กลางจอ) --- */
+ .custom-alert {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%) scale(0.8);
+     background: white;
+     color: #333;
+     min-width: 320px;
+     padding: 25px;
+     border-radius: 15px;
+     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+     text-align: center;
+     opacity: 0;
+     visibility: hidden;
+     z-index: 1000;
+     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+ }
 
-.custom-alert.warning {
-    background-color: #ddab15;
-}
+ .custom-alert.show {
+     opacity: 1;
+     visibility: visible;
+     transform: translate(-50%, -50%) scale(1);
+ }
 
-.custom-alert.error {
-    background-color: #dc3545;
-}
+ .alert-icon {
+     font-size: 3rem;
+     margin-bottom: 15px;
+     display: block;
+ }
 
-/* Responsive */
-@media (max-width: 400px) {
-    form {
-        width: 90%;
-        padding: 20px;
-    }
-}
+ .alert-msg {
+     font-size: 1.1rem;
+     color: #555;
+ }
+
+ /* สีไอคอนตามสถานะ */
+ .success .alert-icon {
+     color: #28a745;
+ }
+
+ .error .alert-icon {
+     color: #dc3545;
+ }
+
+ .warning .alert-icon {
+     color: #ffc107;
+ }
+
+ /* Overlay พื้นหลังมืดเวลา Alert ขึ้น */
+ .overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.4);
+     backdrop-filter: blur(3px);
+     z-index: 999;
+     opacity: 0;
+     visibility: hidden;
+     transition: all 0.3s;
+ }
+
+ .overlay.show {
+     opacity: 1;
+     visibility: visible;
+ }
+
+ /* Animation สั่น (Shake) เมื่อกรอกผิด */
+ .shake {
+     animation: shake 0.5s;
+ }
+
+ @keyframes shake {
+     0% {
+         transform: translateX(0);
+     }
+
+     25% {
+         transform: translateX(-10px);
+     }
+
+     50% {
+         transform: translateX(10px);
+     }
+
+     75% {
+         transform: translateX(-10px);
+     }
+
+     100% {
+         transform: translateX(0);
+     }
+ }
