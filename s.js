@@ -64,7 +64,7 @@ function FailEventPass(event) {
     const password = document.getElementById("mypassInput").value;
 
     if (!password) {
-        showAlert("กรุณากรอกรหัสผ่าน", "warning");
+        showAlert("เอ๊ะ! ยังไม่ใส่ข้อมูลเลยนะ", "warning");
         triggerShake();
         return;
     }
